@@ -87,12 +87,14 @@ var finances = [
   ['Feb-2017', 671099],
 ];
 
+// Total Months
 {
 
 console.log("Total Months = " + finances.length)
 
 }
 
+//Total Profit/Loss
 function sumProfitLoss(finances){
 
   let total = 0;
@@ -107,9 +109,34 @@ var result = sumProfitLoss(finances);
 
 console.log("Total: $" + result)
 
-average = 
-average= (result/finances.length)
+//Codes To calculate the Average change
+function calculateChanges(finances) {
+  let changes = [];
+  let sumOfChanges = 0;
+  let greatestIncrease= -Infinity;
+  let greatestDecrease= 0;
 
-{
-  console.log(average)
+  for (let i = 1; i < finances.length; i++) {
+    var change = finances[i][1] - finances[i - 1][1];
+    
+    changes.push(change);
+    sumOfChanges += change;
+
+    if (change > greatestIncrease) {
+      greatestIncrease=change
+    }
+    if (change<greatestDecrease) {
+      greatestDecrease=change
+    }
+  }
+
+  var averageChange = sumOfChanges / (finances.length - 1);
+
+  return { changes, averageChange, greatestIncrease, greatestDecrease };
 }
+var result = calculateChanges(finances);
+console.log("Average Change:", result.averageChange.toFixed(2));
+console.log("The Greatest Increase is $" +result.greatestIncrease);
+console.log("The Greatest Decrease is $" + result.greatestDecrease);
+
+
